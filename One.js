@@ -2,7 +2,7 @@ document.getElementById('input').addEventListener('change', function () {
     let fr = new FileReader();
 
     fr.onload = function () {
-        const pairs = fr.result.split('\n');
+        const pairs = fr.result.split(/\r?\n/);
         const left = [];
         const right = [];
 
