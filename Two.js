@@ -2,15 +2,14 @@ document.getElementById('input').addEventListener('change', function () {
     let fr = new FileReader();
 
     fr.onload = function () {
-        const lines = fr.result.split('\r\n').map((line) => line.split(' '));
+        const lines = fr.result.split(/\r?\n/).map((line) => line.split(' '));
 
         let count = 0;
         for (let line of lines) {
             line = line.map(string => parseInt(string));
             let safe = true;
-            let ascending = JSON.stringify(line.toSorted());
+            let ascending = JSON.stringify(line.toSorted((a,b) => a-b));
             let descending = JSON.stringify(line.toSorted((a,b) => b-a));
-            console.log(line, ascending, descending);
 
             if (ascending === JSON.stringify(line)) {  // Ascending
                 for (let i = 1; i < line.length; i++) {
@@ -28,7 +27,6 @@ document.getElementById('input').addEventListener('change', function () {
 
             if (safe)
                 count++;
-            console.log(line, safe);
         }
 
         console.log(count);
